@@ -54,7 +54,7 @@ metadata:
   namespace: csi-demo
   name: nginx-pv-claim
 spec:
-  storageClassName: pd-standard
+  storageClassName: pd-standard-zonal
   accessModes:
     - ReadWriteOnce
   resources:
