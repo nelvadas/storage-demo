@@ -1,7 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+  name: csi-demo
+
+---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: nginx-deployment
+  namespace: csi-demo
 spec:
   selector:
     matchLabels:
@@ -29,13 +37,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx
+  namespace: csi-demo
   labels:
     app: nginx
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 80
-      nodePort: 35000
   selector:
     app: nginx
 
@@ -43,9 +51,10 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
+  namespace: csi-demo
   name: nginx-pv-claim
 spec:
-  storageClassName: standard
+  storageClassName: pd-standard
   accessModes:
     - ReadWriteOnce
   resources:
