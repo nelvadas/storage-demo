@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  name: storage-demo-ingress-rule
+  namespace: csi-demo
+spec:
+  tls:
+  - {}
+  rules:
+  - host: storage-demo.apps.dev01.dockernetes.org
+    http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80
